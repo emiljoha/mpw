@@ -1,4 +1,4 @@
-name: mpw
+name: mpw-emijoha
 version: git
 summary: Masterpassword app cli. 
 description: Calculate  a site's password, when you need it. Fork of from masterpassword.app. 
@@ -18,20 +18,8 @@ parts:
         - libboost-system1.58.0
         - libboost-filesystem1.58.0
 
-#    after:
-
-#        - boost
-#  boost:
-#    plugin: autotools
-#    source: https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.zip
-#    source-type: zip
-#    override-build: cd boost_1_69_0 && ./bootstrap.sh --with-libraries=system,filesystem,python --with-python=/usr/bin/python3  && ./b2 && mkdir --parents ../../install/usr/local/include && mv boost ../../install/usr/local/include/ && mkdir --parents ../../install/usr/local/lib && mv stage/lib/* ../../install/usr/local/lib/
-#    build-packages:
-#      - python3-dev
-#    stage: [usr/local/include/boost, usr/local/lib/*]
-
-#    prime: [usr/local/lib/*]
 apps:
   mpw:
     command: bin/mpw
-
+    environment:
+      LANG: C.UTF-8
