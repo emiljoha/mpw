@@ -1,0 +1,11 @@
+*.o
+*.so
+*.pyc
+__pycache__
+*~
+bin
+build
+dist
+*.egg-info
+lib*
+pyvenv*
