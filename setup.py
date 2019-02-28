@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import platform
 from setuptools import setup, Extension
 
 cppflags = ['-lm', '-fPIC']
@@ -17,6 +17,12 @@ mpwalgorithm_sources = ['core/mpw-algorithm/aes.c',
                         'core/mpw-algorithm/mpw-algorithm_v2.c',
                         'core/mpw-algorithm/mpw-algorithm_v3.c',
                         'core/mpw-algorithm/base64.c',]
+boost_python_library_name_dict = {'Darwin': 'boost_python37'}
+boost_python_library_name_default = 'boost_python-p35' # Ubuntu 16.04
+if platform.system() in boost_python_library_name_dict:
+    boost_python_library_name = boost_python_library_name_dict[platform.system()]
+else:
+    boost_python_library_name = boost_python_library_name_default
 allsources = mpwalgorithm_sources + mpwalgorithmwrapper_sources
 setup(name='mpw',
       version='0.1',
@@ -34,7 +40,7 @@ setup(name='mpw',
           Extension('pympw',
                     allsources,
                     include_dirs=['core', 'core/mpw-algorithm'],
-                    libraries=['boost_python-py35', 'boost_system',
+                    libraries=[boost_python_library_name, 'boost_system',
                                'boost_filesystem', 'sodium'],
                     extra_compile_args=allflags
           ),

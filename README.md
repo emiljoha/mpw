@@ -33,18 +33,42 @@ Master Password's unique approach makes you safer from loss, theft, problems
 with backups, sync, confiscation, snooping, and more.
 
 ## Getting started
-### Build
-Building the C/C++ libraries have dependencies boost_system and
-boost_filesystem. There are probably more that I have forgotten to include.
-```shell
-	python3 setup.py build
-```
-### Install
+
+### Snap
+
+The easiest way to get mpw is to install the snap. At the moment the
+snap does not support settings or copy paste but it will soon
+(hopefully). Due to this unfinished state the snap is only published
+in edge and in development mode. 
 
 ```shell
+sudo snap install --edge mpw-emijoh --devmode
+
+
+### Build with setuptools
+
+Building the C/C++ libraries have dependencies boost_system,
+boost_filesystem, boost_python and libsodium.
+
+#### Dependencies on mac
+
+```shell
+brew install boost python3 libsodium boost-python3
+````
+#### Dependencies on Linux
+
+TODO (you can find the dependenices for ubuntu16.04 in the snap/snapcraft.yaml)
+
+
+After installing dependencies build and install with.
+
+```shell
+	python3 setup.py build
 	python3 setup.py install
 ```
-### Uninstall
+
+To uninstall.
+
 ```shell
 	pip uninstall mpw
 ```
