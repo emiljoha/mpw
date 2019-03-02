@@ -1,3 +1,5 @@
+[![Snap Status](https://build.snapcraft.io/badge/emiljoha/mpw.svg)](https://build.snapcraft.io/user/emiljoha/mpw)
+
 # Masterpassword
 
 This is a linux commandline interface based on the https://masterpassword.app/
