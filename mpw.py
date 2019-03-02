@@ -7,11 +7,16 @@ import getpass # Password prompt
 from argparse import RawTextHelpFormatter
 import hashlib
 import json
-
-def parse_commandline_arguments():
+def parse_commandline_arguments(config_path_for_help_message):
     """Parse commandline argument and return namespace"""
     # Define what arguments to accept and with what help message and defaults.
-    parser = argparse.ArgumentParser(description='Generate passwords',
+    parser = argparse.ArgumentParser(
+        description="""Generate passwords
+
+JSON style configuration file can be found in %s
+Parameters:
+FULL_NAME: set default name to avoid specifying it every time.
+""" % config_path_for_help_message,
                                      formatter_class=RawTextHelpFormatter)
     parser.add_argument('-u', '--full-name', type=str,
                         default=None,
@@ -48,10 +53,10 @@ def parse_commandline_arguments():
     args = parser.parse_args()
     return args
 
-def read_config():
+def read_config(config_path):
     if 'HOME' in os.environ:
         try:
-            config_file = open(os.environ['HOME'] + '/.config/mpw/config.json')
+            config_file = open(config_path)
         except IOError:
             print("Warning: Failed to open config file")
             return dict()
@@ -118,10 +123,16 @@ def print_results(site_result, identicon, args):
 
 
 def main():
-    # Define and read commandline arguments.
-    args = parse_commandline_arguments()
+    run(os.environ['HOME'] + '/.config/mpw/config.json')
+
+def main_snap():
+    run(os.environ['SNAP_DATA'] + '/config.json')
+
+def run(config_path):
+    # Define and read commandline arguments. (Need config path for help message.)
+    args = parse_commandline_arguments(config_path)
     # Look for environment variables or ask when missing information in arguments.
-    config = read_config()
+    config = read_config(config_path)
     args = process_arguments(args, config)
     # Get password from user.
     master_password = getpass.getpass()

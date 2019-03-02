@@ -28,6 +28,7 @@ setup(name='mpw',
       entry_points={
         'console_scripts': [
             'mpw = mpw:main',
+            'mpw_snap = mpw:main_snap',
         ],},
       scripts=['mpw.py'],
       ext_modules=[

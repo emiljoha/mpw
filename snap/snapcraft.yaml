@@ -20,6 +20,6 @@ parts:
 
 apps:
   mpw:
-    command: bin/mpw
+    command: bin/mpw_snap
     environment:
       LANG: C.UTF-8
