@@ -142,5 +142,8 @@ def run(config_path):
     try:
         pyperclip.copy(site_result)
     except pyperclip.PyperclipException as e:
-        print("Warning: Could not find a copy/paste mechanism for your system.")
+        if not args.quiet:
+            print("Warning: Could not find a copy/paste mechanism for your system.")
+        if args.verbose:
+            print(str(e))
     print_results(site_result, identicon, args)

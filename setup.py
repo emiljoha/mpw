@@ -24,7 +24,6 @@ setup(name='mpw',
       author='Emil Johansson',
       author_email='emil.sweden@gmail.com',
       url='https://gitlab.com/emijoha/MasterPassword',
-      install_requires=['pyperclip'],
       entry_points={
         'console_scripts': [
             'mpw = mpw:main',
@@ -41,14 +40,6 @@ setup(name='mpw',
           ),
       ],
       setup_requires=["pytest-runner"],
-      tests_require=["pytest"]
+      install_requires=['pyperclip'],
+      tests_require=['pytest', 'pexpect']
 )
-      
-# aes.h
-# mpw-algorithm.h
-# mpw-marshal-util.h
-# mpw-util.h
-# base64.h
-# mpw-marshal.h
-# mpw-types.h
-# 'core/conversions.h',
