@@ -40,10 +40,6 @@ FULL_NAME: set default name to avoid specifying it every time.
     parser.add_argument('-p', '--key-purpose', type=str, default="Authentication",
                         help="Purpose of site result.\n"
                         "One of: Authentication, Identification, Recovery.\n")
-    parser.add_argument('-a', '--version', type=int, default=3,
-                        help="The algorithm version to use, 0 - 3.\n"
-                        "Defaults to env var MPW_ALGORITHM or 3.\n")
-    #parser.add_argument('--feature', dest='feature', )
     parser.add_argument('-v', '--verbose', action='store_true', default=False,
                         help="Increase output verbosity.\n")
     parser.add_argument('-q', '--quiet', action='store_true', default=False,
@@ -89,10 +85,12 @@ def process_arguments(args, config):
 def generate_results(args, master_password):
     try:
         identicon = pympw.identicon(args.full_name, master_password)
-        site_result = pympw.siteResult(args.full_name, master_password,
-                                       args.site_name, args.counter, args.key_purpose,
-                                       args.site_result_type, args.version)
-        masterKey = pympw.masterKey(args.full_name, master_password, args.version)
+        site_result = pympw.generate_password(args.full_name, master_password,
+                                              args.site_name, args.counter,
+                                              args.key_purpose,
+                                              args.site_result_type)
+        masterKey = pympw.masterKey(args.full_name, master_password,
+                                    "Authentication")
         sha256 = hashlib.sha256()
         sha256.update(masterKey)
         masterKeyHash = sha256.hexdigest()
@@ -114,10 +112,9 @@ def print_results(site_result, identicon, args):
     resultParam      : (null)
     keyPurpose       : %s
     keyContext       : (null)
-    algorithmVersion : %s
     ------------------""" % (args.full_name, args.site_name,
                              args.counter, args.site_result_type,
-                             args.key_purpose, args.version))
+                             args.key_purpose))
     if not args.quiet:
         print("[ %s ]: %s" % (identicon, site_result))
 

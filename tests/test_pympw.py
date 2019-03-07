@@ -4,25 +4,12 @@ from tests.testcases import load_test_cases
 import pprint
 
 def run_testcase_siteResult(case, verbose):
-    try:
-        siteResult = pympw.siteResult(case['fullName'],
-                                      case['masterPassword'],
-                                      case['siteName'], case['siteCounter'],
-                                      case['keyPurpose'],
-                                      case['resultType'],
-                                      case['algorithm'])
-                                      
-    except Exception as e:
-        if verbose:
-            print("Exception thrown: %s" % e)
-            pprint.pprint(case)
-        return False
-    if siteResult != case['result']:
-        print("Got result: %s, expected: %s" % (siteResult, case['result']))
-        pprint.pprint(case)
-        return False
-    else:
-        return True
+    siteResult = pympw.generate_password(case['fullName'],
+                                         case['masterPassword'],
+                                         case['siteName'], case['siteCounter'],
+                                         case['keyPurpose'],
+                                         case['resultType'])
+    assert(siteResult == case['result'])
 
 def run_testcase_identicon(case, verbose):
     assert(pympw.identicon(case['fullName'], case['masterPassword']))

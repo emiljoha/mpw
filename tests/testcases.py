@@ -6,6 +6,7 @@ def load_test_cases(filename):
     result = _resolve_inheritance(result)
     result = _remove_parent_key(result)
     result = _remove_default_testcase(result)
+    result = _remove_none_v3_testcases(result)
     return result
 
 def _load_xml_entry(case):
@@ -64,3 +65,12 @@ def _remove_parent_key(test_cases):
         if 'parent' in case:
             del case['parent']
     return test_cases
+
+def _remove_none_v3_testcases(test_cases):
+    def is_v3(case):
+        return case['algorithm'] == 3
+    res = list(filter(is_v3, test_cases))
+    def remove_algorithm(case):
+        del case['algorithm']
+        return case
+    return list(map(remove_algorithm, res))
