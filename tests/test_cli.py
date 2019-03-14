@@ -30,15 +30,15 @@ def run_test_keyword_short(id, fullName, masterPassword, keyID, siteName,
         pprint.pprint(arguments)
         print("spawn command: %s" % spawn_command)
         print(e)
-        return False
-    return True
+        assert(False)
+    assert(True)
 
 
 def test_keyword_short():
     test_cases = load_test_cases('tests/testcases.xml')
+    assert(len(test_cases) > 1)
     test_cases = [case for case in test_cases if 'keyContext' not in case]
-    # passed = [run_test_keyword_short(**case) for case in test_cases]
-    # print('Number of passed Tests: %s\n' % len([case for case in passed if case is True]))
-    # print('Number of failed Tests: %s\n' % len([case for case in passed if case is False]))
+    for case in test_cases:
+        run_test_keyword_short(**case)
 
 

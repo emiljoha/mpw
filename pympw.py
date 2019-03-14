@@ -7,6 +7,9 @@ key_scopes_dict = {'Authentication': 'com.lyndir.masterpassword',
                    'Identification': 'com.lyndir.masterpassword.login',
                    'Recovery': 'com.lyndir.masterpassword.answer'}
 
+def ASCII(s):
+    maxAnsiCode = 127
+    return all([c <= maxAnsiCode for c in s.encode()])
 
 def masterKey(master_password, name, purpose):
     """Phase 1: Your identity
@@ -35,6 +38,10 @@ def masterKey(master_password, name, purpose):
     cryptographic key from the user’s name and master password using a fixed
     set of parameters.
     """
+    if not ASCII(master_password):
+        raise ValueError("Password contains characters that are not ascii")
+    if not ASCII(name):
+        raise ValueError("Name contains characters that are not ascii")
     key = master_password
     # uint32
     length_name_as_bytes = len(name).to_bytes(length=4,
@@ -73,6 +80,8 @@ def sitekey(site_name, master_key, counter, purpose):
     cryptographic site key from the from the site name and master key scoped
     to a given counter value.
     """
+    if not ASCII(site_name):
+        raise ValueError("Site name contains characters that are not ascii")
     key = master_key
     length_site_name_as_bytes = len(site_name).to_bytes(length=4,
                                                         byteorder='big',
@@ -172,6 +181,7 @@ def password(site_key, template_class):
 
     This password is then used to authenticate the user for his account at
     this site."""
+
     templates = template_dictionary[template_class]
     template = templates[site_key[0] % len(templates)]
     password = []
@@ -187,6 +197,12 @@ def generate_password(full_name,
 	              site_counter,
 	              key_purpose,
 	              result_type):
+    if not ASCII(master_password):
+        raise ValueError("Password contains characters that are not ascii")
+    if not ASCII(full_name):
+        raise ValueError("Name contains characters that are not ascii")
+    if not ASCII(site_name):
+        raise ValueError("Password contains characters that are not ascii")
     master_key = masterKey(master_password,
                            full_name,
                            key_purpose)
