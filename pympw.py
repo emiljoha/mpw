@@ -3,9 +3,9 @@ import hashlib
 import hmac
 import sys
 
-key_scopes_dict = {'Authentication': 'com.lyndir.masterpassword',
-                   'Identification': 'com.lyndir.masterpassword.login',
-                   'Recovery': 'com.lyndir.masterpassword.answer'}
+key_scopes_dict = {'Authentication': 'com.lyndir.masterpassword'}
+                   # 'Identification': 'com.lyndir.masterpassword.login',
+                   # 'Recovery': 'com.lyndir.masterpassword.answer'}
 
 def ASCII(s):
     maxAnsiCode = 127
@@ -202,12 +202,17 @@ def generate_password(full_name,
 	              site_counter,
 	              key_purpose,
 	              result_type):
-    if not ASCII(master_password):
-        raise ValueError("Password contains characters that are not ascii")
-    if not ASCII(full_name):
-        raise ValueError("Name contains characters that are not ascii")
-    if not ASCII(site_name):
-        raise ValueError("Password contains characters that are not ascii")
+    if not all([ASCII(master_password),
+                ASCII(full_name),
+                ASCII(site_name)]):
+        error_message = ""
+        if not ASCII(master_password):
+            error_message += "Password contains characters that are not ascii\n"
+        if not ASCII(full_name):
+            error_message += "Name contains characters that are not ascii\n"
+        if not ASCII(site_name):
+            error_message += "Site name contains characters that are not ascii\n"
+        raise ValueError(error_message)
     master_key = masterKey(master_password,
                            full_name,
                            key_purpose)
