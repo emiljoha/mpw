@@ -84,7 +84,7 @@ def process_arguments(args, config):
     short_site_result_type_dict = {'x': 'Maximum', 'l': 'Long', 'm': 'Medium', 'b': 'Basic',
                                    's': 'Short', 'i': 'PIN', 'n': 'Name', 'p': 'Phrase'}
     if args.site_result_type in short_site_result_type_dict:
-        args.site_result_type = short_site_result_type_dict[args.pw_type]
+        args.site_result_type = short_site_result_type_dict[args.site_result_type]
     return args
 
 

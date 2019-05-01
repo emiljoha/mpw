@@ -152,7 +152,8 @@ template_chars_dictionary = {
     'a': list('AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz'),
     'n': list('0123456789'),
     'o': list("""@&%?,=[]_:-+*$#!'^~;()/."""),
-    'x': list("""AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789!@#$%^&*()""")
+    'x': list("""AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789!@#$%^&*()"""),
+    ' ': list(" ")
 }
 
 def password(site_key, template_class):
