@@ -9,11 +9,10 @@ setup(name='mpw',
       url='https://gitlab.com/emijoha/MasterPassword',
       entry_points={
         'console_scripts': [
-            'mpw = mpw:main',
-            'mpw_snap = mpw:main_snap',
+            'mpw = mpwcli:main',
+            'mpw_snap = mpwcli:main_snap',
         ],},
-      scripts=['mpw.py'],
-      py_modules=['pympw'],
+      py_modules=['pympw', 'mpwcli'],
       setup_requires=["pytest-runner"],
       install_requires=['pyperclip', 'scrypt'],
       tests_require=['pytest', 'pexpect']

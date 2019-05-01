@@ -39,7 +39,10 @@ FULL_NAME: set default name to avoid specifying it every time.
                         "p, Phrase   | 20 character sentence.\n")
     parser.add_argument('-p', '--key-purpose', type=str, default="Authentication",
                         help="Purpose of site result.\n"
-                        "One of: Authentication, Identification, Recovery.\n")
+                        "Currently only Authentication is supported.\n"
+                        "Comment on/create a issue on github for this to be fixed\n"
+                        "if this is a problem to you.\n"
+                        "One of: Authentication, [Identification, Recovery].\n")
     parser.add_argument('-v', '--verbose', action='store_true', default=False,
                         help="Increase output verbosity.\n")
     parser.add_argument('-q', '--quiet', action='store_true', default=False,
@@ -47,6 +50,9 @@ FULL_NAME: set default name to avoid specifying it every time.
     parser.add_argument('site_name', type=str, nargs='?',
                         help='Name of the site for which to generate a token.', default=None)
     args = parser.parse_args()
+    if not args.key_purpose == "Authentication":
+        print("Only Authentication key purpose is currrently supported")
+        quit()
     return args
 
 def read_config(config_path):
