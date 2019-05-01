@@ -42,6 +42,8 @@ def masterKey(master_password, name, purpose):
         raise ValueError("Password contains characters that are not ascii")
     if not ASCII(name):
         raise ValueError("Name contains characters that are not ascii")
+    if not purpose in key_scopes_dict:
+        raise ValueError("%s not a valid purpose" % purpose)
     key = master_password
     # uint32
     length_name_as_bytes = len(name).to_bytes(length=4,
@@ -183,6 +185,8 @@ def password(site_key, template_class):
     This password is then used to authenticate the user for his account at
     this site."""
 
+    if not template_class in template_dictionary:
+        raise ValueError("%s not a valid template" % template_class)
     templates = template_dictionary[template_class]
     template = templates[site_key[0] % len(templates)]
     password = []
