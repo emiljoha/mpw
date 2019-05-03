@@ -10,6 +10,8 @@ parts:
     source: .
     build-packages:
         - libssl-dev
+    stage-packages:
+        - xsel
 
 apps:
   mpw:
