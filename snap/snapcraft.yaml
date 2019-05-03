@@ -1,23 +1,15 @@
 name: mpw-emijoha
 version: git
 summary: Masterpassword app cli. 
-description: Calculate  a site's password, when you need it. Fork of from masterpassword.app. 
-confinement: devmode 
+description: Calculate  a site's password, when you need it. Fork of from masterpassword.app.
+confinement: devmode
 parts:
   mpw:
     plugin: python
     python-version: python3
     source: .
     build-packages:
-        - libsodium-dev
-        - libboost-all-dev
-    stage-packages:
-        - libsodium18
-        - python3
-        - libboost-python1.58.0
-        - libboost-system1.58.0
-        - libboost-filesystem1.58.0
-        - xsel
+        - libssl-dev
 
 apps:
   mpw:
