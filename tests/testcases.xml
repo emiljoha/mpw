@@ -10,6 +10,7 @@
         <resultType>Long</resultType>
         <keyPurpose>Authentication</keyPurpose>
         <result><!-- abstract --></result>
+	<identicon>╚☻╯⛄</identicon>
     </case>
 
     <!-- Algorithm 3 -->
@@ -21,11 +22,13 @@
         <fullName>⛄</fullName>
         <keyID>1717AA1F9BF5BA56CD0965CDA3D78E6D2E6A1EA8C067A8EA621F3DDAD4A87EB8</keyID>
         <result>NopaDajh8=Fene</result>
+	<identicon>═░╗☣</identicon>
     </case>
     <case id="v3_mb_masterPassword" parent="v3">
         <masterPassword>⛄</masterPassword>
         <keyID>351432B8528A5ABECAB768CA95015097DE76FE14C41E10AF36C67DCFB8917E08</keyID>
         <result>QesuHirv5-Xepl</result>
+	<identicon>╰█═✌</identicon>
     </case>
     <case id="v3_mb_siteName" parent="v3">
         <siteName>⛄</siteName>
@@ -87,11 +90,13 @@
         <fullName>⛄</fullName>
         <keyID>4D5851D0B093D65DE0CF13D94877270468C0B65A6E42CA50D393AC9B99C457B5</keyID>
         <result>WaqoGuho2[Xaxw</result>
+	<identicon>═░╗☣</identicon>
     </case>
     <case id="v2_mb_masterPassword" parent="v2">
         <masterPassword>⛄</masterPassword>
         <keyID>351432B8528A5ABECAB768CA95015097DE76FE14C41E10AF36C67DCFB8917E08</keyID>
         <result>QesuHirv5-Xepl</result>
+	<identicon>╰█═✌</identicon>
     </case>
     <case id="v2_mb_siteName" parent="v2">
         <siteName>⛄</siteName>
@@ -153,11 +158,13 @@
         <fullName>⛄</fullName>
         <keyID>4D5851D0B093D65DE0CF13D94877270468C0B65A6E42CA50D393AC9B99C457B5</keyID>
         <result>WaqoGuho2[Xaxw</result>
+	<identicon>═░╗☣</identicon>
     </case>
     <case id="v1_mb_masterPassword" parent="v1">
         <masterPassword>⛄</masterPassword>
         <keyID>351432B8528A5ABECAB768CA95015097DE76FE14C41E10AF36C67DCFB8917E08</keyID>
         <result>QesuHirv5-Xepl</result>
+	<identicon>╰█═✌</identicon>
     </case>
     <case id="v1_mb_siteName" parent="v1">
         <siteName>⛄</siteName>
@@ -219,11 +226,13 @@
         <fullName>⛄</fullName>
         <keyID>4D5851D0B093D65DE0CF13D94877270468C0B65A6E42CA50D393AC9B99C457B5</keyID>
         <result>HajrYudo7@Mamh</result>
+	<identicon>═░╗☣</identicon>
     </case>
     <case id="v0_mb_masterPassword" parent="v0">
         <masterPassword>⛄</masterPassword>
         <keyID>351432B8528A5ABECAB768CA95015097DE76FE14C41E10AF36C67DCFB8917E08</keyID>
         <result>MewmDini0]Meho</result>
+	<identicon>╰█═✌</identicon>
     </case>
     <case id="v0_mb_siteName" parent="v0">
         <siteName>⛄</siteName>

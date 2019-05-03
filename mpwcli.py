@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import os # to get environment variables
 import argparse # Parsing arguments
-import pympw # The master password algorithm
+import mpwalg # The master password algorithm
 import pyperclip # Copy to clipboard
 import getpass # Password prompt
 from argparse import RawTextHelpFormatter
@@ -39,11 +39,10 @@ FULL_NAME: set default name to avoid specifying it every time.
                         "p, Phrase   | 20 character sentence.\n")
     parser.add_argument('-p', '--key-purpose', type=str, default="Authentication",
                         help="Purpose of site result.\n"
-                        "One of: Authentication, Identification, Recovery.\n")
-    parser.add_argument('-a', '--version', type=int, default=3,
-                        help="The algorithm version to use, 0 - 3.\n"
-                        "Defaults to env var MPW_ALGORITHM or 3.\n")
-    #parser.add_argument('--feature', dest='feature', )
+                        "Currently only Authentication is supported.\n"
+                        "Comment on/create a issue on github for this to be fixed\n"
+                        "if this is a problem to you.\n"
+                        "One of: Authentication, [Identification, Recovery].\n")
     parser.add_argument('-v', '--verbose', action='store_true', default=False,
                         help="Increase output verbosity.\n")
     parser.add_argument('-q', '--quiet', action='store_true', default=False,
@@ -51,6 +50,9 @@ FULL_NAME: set default name to avoid specifying it every time.
     parser.add_argument('site_name', type=str, nargs='?',
                         help='Name of the site for which to generate a token.', default=None)
     args = parser.parse_args()
+    if not args.key_purpose == "Authentication":
+        print("Only Authentication key purpose is currrently supported")
+        quit()
     return args
 
 def read_config(config_path):
@@ -82,17 +84,19 @@ def process_arguments(args, config):
     short_site_result_type_dict = {'x': 'Maximum', 'l': 'Long', 'm': 'Medium', 'b': 'Basic',
                                    's': 'Short', 'i': 'PIN', 'n': 'Name', 'p': 'Phrase'}
     if args.site_result_type in short_site_result_type_dict:
-        args.site_result_type = short_site_result_type_dict[args.pw_type]
+        args.site_result_type = short_site_result_type_dict[args.site_result_type]
     return args
 
 
 def generate_results(args, master_password):
     try:
-        identicon = pympw.identicon(args.full_name, master_password)
-        site_result = pympw.siteResult(args.full_name, master_password,
-                                       args.site_name, args.counter, args.key_purpose,
-                                       args.site_result_type, args.version)
-        masterKey = pympw.masterKey(args.full_name, master_password, args.version)
+        identicon = mpwalg.identicon(args.full_name, master_password)
+        site_result = mpwalg.generate_password(args.full_name, master_password,
+                                              args.site_name, args.counter,
+                                              args.key_purpose,
+                                              args.site_result_type)
+        masterKey = mpwalg.masterKey(args.full_name, master_password,
+                                    "Authentication")
         sha256 = hashlib.sha256()
         sha256.update(masterKey)
         masterKeyHash = sha256.hexdigest()
@@ -114,10 +118,9 @@ def print_results(site_result, identicon, args):
     resultParam      : (null)
     keyPurpose       : %s
     keyContext       : (null)
-    algorithmVersion : %s
     ------------------""" % (args.full_name, args.site_name,
                              args.counter, args.site_result_type,
-                             args.key_purpose, args.version))
+                             args.key_purpose))
     if not args.quiet:
         print("[ %s ]: %s" % (identicon, site_result))
 
