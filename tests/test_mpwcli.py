@@ -11,7 +11,8 @@ def is_ascii(s):
     return all([c <= maxAnsiCode for c in s.encode()])
 
 def run_test_keyword_short(fullName, masterPassword, siteName,
-                           siteCounter, resultType, keyPurpose, result):
+                           siteCounter, resultType, keyPurpose,
+                           result, identicon):
     global num_tests_run
     arguments = locals()
     spawn_command = 'mpw -u \"%s\" -c %s -t %s -p %s %s' % (fullName,
@@ -36,12 +37,11 @@ def run_test_keyword_short(fullName, masterPassword, siteName,
                 assert("Site name contains characters that are not ascii" in output)
         else:
             assert(result in output)
-    elif keyPurpose == "Authentication":
+            assert(identicon in output)
+    else:
         output = child.read()
         child.close()
-        assert(output == "Only Authentication key purpose is currrently supported\r\n")
-        output = child.read()
-        child.close()
+        assert("Only Authentication key purpose is currrently supported" in output)
 
 def test_keyword_short():
     test_cases = [case for case in load_test_cases('tests/testcases.xml') if
@@ -52,4 +52,4 @@ def test_keyword_short():
         run_test_keyword_short(case['fullName'], case['masterPassword'],
                                case['siteName'], case['siteCounter'],
                                case['resultType'], case['keyPurpose'],
-                               case['result'])
+                               case['result'], case['identicon'])

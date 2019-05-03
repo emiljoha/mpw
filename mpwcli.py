@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import os # to get environment variables
 import argparse # Parsing arguments
-import pympw # The master password algorithm
+import mpwalg # The master password algorithm
 import pyperclip # Copy to clipboard
 import getpass # Password prompt
 from argparse import RawTextHelpFormatter
@@ -90,12 +90,12 @@ def process_arguments(args, config):
 
 def generate_results(args, master_password):
     try:
-        identicon = pympw.identicon(args.full_name, master_password)
-        site_result = pympw.generate_password(args.full_name, master_password,
+        identicon = mpwalg.identicon(args.full_name, master_password)
+        site_result = mpwalg.generate_password(args.full_name, master_password,
                                               args.site_name, args.counter,
                                               args.key_purpose,
                                               args.site_result_type)
-        masterKey = pympw.masterKey(args.full_name, master_password,
+        masterKey = mpwalg.masterKey(args.full_name, master_password,
                                     "Authentication")
         sha256 = hashlib.sha256()
         sha256.update(masterKey)

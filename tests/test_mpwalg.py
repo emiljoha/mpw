@@ -1,18 +1,19 @@
 #!/usr/bin/python3
-import pympw
+import mpwalg
 from tests.testcases import load_test_cases
 import pprint
 
 def run_testcase_siteResult(case, verbose):
-    siteResult = pympw.generate_password(case['fullName'],
-                                         case['masterPassword'],
-                                         case['siteName'], case['siteCounter'],
-                                         case['keyPurpose'],
-                                         case['resultType'])
+    siteResult = mpwalg.generate_password(case['fullName'],
+                                          case['masterPassword'],
+                                          case['siteName'], case['siteCounter'],
+                                          case['keyPurpose'],
+                                          case['resultType'])
     assert(siteResult == case['result'])
 
 def run_testcase_identicon(case, verbose):
-    assert(pympw.identicon(case['fullName'], case['masterPassword']))
+    assert(case["identicon"] == mpwalg.identicon(case['fullName'],
+                                                 case['masterPassword']))
 
 def is_ascii(test_case):
     def string_is_ascii(s):
