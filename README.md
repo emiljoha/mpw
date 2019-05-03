@@ -36,42 +36,60 @@ with backups, sync, confiscation, snooping, and more.
 
 ### Snap
 
-The easiest way to get mpw is to install the snap. At the moment the
-snap does not support settings or copy paste but it will soon
-(hopefully). Due to this unfinished state the snap is only published
-in edge and in development mode. 
+The easiest way to get mpw is to install the snap. The snap is only published
+in edge and in development mode witch indicates that there might be
+issues. But not more than in the other ways of installing the app.
 
 ```shell
 sudo snap install --edge mpw-emijoh --devmode
 
+```
+
+#### Build your own snap
+
+Install lxd and snapcraft if you do not have them already.
+``` shell
+sudo snap install lxd && sudo /snap/bin/lxd init
+sudo usermod -a -G lxd $USER && newgrp lxd
+sudo snap install --classic snapcraft
+```
+
+Get the source code.
+``` shell
+git clone https://github.com/emijoha/mpw
+```
+
+Build the snap.
+``` shell
+cd mpw
+snapcraft cleanbuild
+```
 
 ### Build with setuptools
 
-Building the C/C++ libraries have dependencies boost_system,
-boost_filesystem, boost_python and libsodium.
+Install OpenSSL developmend packages.
 
-#### Dependencies on mac
+OpenSuse
+``` shell
+sudo zypper in libopenssl-devel
+```
 
+Ubuntu
+``` shell
+sudo apt install libssl-dev
+```
+
+Install with setuptools
 ```shell
-brew install boost python3 libsodium boost-python3
-````
-#### Dependencies on Linux
-
-TODO (you can find the dependenices for ubuntu16.04 in the snap/snapcraft.yaml)
-
-
-After installing dependencies build and install with.
-
-```shell
-	python3 setup.py build
 	python3 setup.py install
 ```
 
 To uninstall.
-
 ```shell
 	pip uninstall mpw
 ```
+
+
 
 
 
