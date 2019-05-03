@@ -1,3 +1,4 @@
+# coding=UTF-8
 import scrypt
 import hashlib
 import hmac
@@ -222,6 +223,34 @@ def generate_password(full_name,
                        key_purpose)
     return password(site_key, result_type)
 
+left_arm_list = ["╔", "╚", "╰", "═"]
+right_arm_list = ["╗", "╝", "╯", "═"]
+body_list = ["█", "░", "▒", "▓", "☺", "☻"]
+accessory_list = [
+    "◈", "◎", "◐", "◑", "◒", "◓", "☀", "☁", "☂", "☃", "", "★",
+    "☆", "☎", "☏", "⎈", "⌂", "☘", "☢", "☣", "☕", "⌚", "⌛", "⏰",
+    "⚡", "⛄", "⛅", "☔", "♔", "♕", "♖", "♗", "♘", "♙", "♚", "♛",
+    "♜", "♝", "♞", "♟", "♨", "♩", "♪", "♫", "⚐", "⚑", "⚔", "⚖",
+    "⚙", "⚠", "⌘", "⏎", "✄", "✆", "✈", "✉", "✌"]
+color_code = {"Red": '\033[31m', "Green": '\033[32m', "Yellow":
+              '\033[33m', "Blue": '\033[34m', "Magenta": '\033[35m',
+              "Cyan": '\033[36m', "White": '\033[37m'}
+color_list = ["Red", "Green", "Yellow", "Blue", "Magenta", "Cyan", "White"]
 
-def identicon(full_name, master_password):
-    return "<identicon coming soon>"
+def identicon(full_name, master_password, use_color=False):
+    non_legit_input = ((len(full_name) == 0) or (full_name is None) or
+                       (len(master_password) == 0) or master_password is None)
+    if non_legit_input:
+        return ""
+    seed = hmac.new(master_password.encode(), full_name.encode(),
+                    hashlib.sha256).digest()
+    left_arm = left_arm_list[seed[0] % len(left_arm_list)]
+    body = body_list[seed[1] % len(body_list)] 
+    right_arm = right_arm_list[seed[2] % len(right_arm_list)]
+    accessory = accessory_list[seed[3] % len(accessory_list)]
+    color = color_list[seed[4] % len(color_list)]
+    icon = "%s%s%s%s" % (left_arm, body, right_arm, accessory)
+    if use_color:
+        return color_code[color] + icon + color_code["White"]
+    else:
+        return icon
