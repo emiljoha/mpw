@@ -41,7 +41,7 @@ in edge and in development mode witch indicates that there might be
 issues. But not more than in the other ways of installing the app.
 
 ```shell
-sudo snap install --edge mpw-emijoh --devmode
+sudo snap install --edge mpw --devmode
 
 ```
 
