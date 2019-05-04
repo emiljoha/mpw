@@ -26,18 +26,8 @@ def run_test_keyword_short(fullName, masterPassword, siteName,
         child.sendline(masterPassword)
         output = child.read()
         child.close()
-        if not all([is_ascii(fullName), is_ascii(siteName),
-                   is_ascii(masterPassword)]):
-            assert("Error generating result, aborting" in output)
-            if not is_ascii(fullName):
-                assert("Name contains characters that are not ascii" in output)
-            if not is_ascii(masterPassword):
-                assert("Password contains characters that are not ascii" in output)
-            if not is_ascii(siteName):
-                assert("Site name contains characters that are not ascii" in output)
-        else:
-            assert(result in output)
-            assert(identicon in output)
+        assert(result in output)
+        assert(identicon in output)
     else:
         output = child.read()
         child.close()

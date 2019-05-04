@@ -32,7 +32,6 @@ def test():
     # not fix it untill someone have a problem with it. The same is none-ascii.
     test_cases = [case for case in load_test_cases('tests/testcases.xml') if
                   ('keyContext' not in case) and
-                  is_ascii(case) and
                   (case['keyPurpose'] == 'Authentication') and
                   (case['algorithm'] == 3)]
     [run_testcase_identicon(case, verbose=True) for case in test_cases]
