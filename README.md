@@ -1,5 +1,7 @@
 [![Snap Status](https://build.snapcraft.io/badge/emiljoha/mpw.svg)](https://build.snapcraft.io/user/emiljoha/mpw)
 
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/mpw)
+
 # Masterpassword
 
 This is a linux commandline interface based on the https://masterpassword.app/
