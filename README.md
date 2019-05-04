@@ -1,4 +1,4 @@
-[![Snap Status](https://build.snapcraft.io/badge/emiljoha/mpw.svg)](https://build.snapcraft.io/user/emiljoha/mpw)
+[![Snap Status](https://build.snapcraft.io/badge/emiljoha/mpw.svg)](https://build.snapcraft.io/user/emiljoha/mpw) [![Build Status](https://travis-ci.com/emiljoha/mpw.svg?branch=master)](https://travis-ci.com/emiljoha/mpw)
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/mpw)
 
