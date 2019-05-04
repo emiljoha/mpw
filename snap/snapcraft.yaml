@@ -1,4 +1,4 @@
-name: mpw-emijoha
+name: mpw
 version: git
 summary: Masterpassword app cli. 
 description: Calculate  a site's password, when you need it. Fork of from masterpassword.app.
