@@ -8,9 +8,9 @@ key_scopes_dict = {'Authentication': 'com.lyndir.masterpassword'}
                    # 'Identification': 'com.lyndir.masterpassword.login',
                    # 'Recovery': 'com.lyndir.masterpassword.answer'}
 
-def ASCII(s):
-    maxAnsiCode = 127
-    return all([c <= maxAnsiCode for c in s.encode()])
+ENCODING = 'utf-8'
+BYTE_ORDER = 'big'
+INT_BYTES = 4
 
 def masterKey(master_password, name, purpose):
     """Phase 1: Your identity
@@ -39,24 +39,17 @@ def masterKey(master_password, name, purpose):
     cryptographic key from the user’s name and master password using a fixed
     set of parameters.
     """
-    if not ASCII(master_password):
-        raise ValueError("Password contains characters that are not ascii")
-    if not ASCII(name):
-        raise ValueError("Name contains characters that are not ascii")
-    if not purpose in key_scopes_dict:
-        raise ValueError("%s not a valid purpose" % purpose)
-    key = master_password
-    # uint32
-    length_name_as_bytes = len(name).to_bytes(length=4,
-                                              byteorder='big',
-                                              signed=False)
-    seed = key_scopes_dict[purpose].encode() + \
-         length_name_as_bytes + name.encode()
+    key = master_password.encode(ENCODING)
+    length_name_as_bytes = len(name.encode(ENCODING)).to_bytes(length=INT_BYTES,
+                                                               byteorder=BYTE_ORDER,
+                                                               signed=False)
+    seed = key_scopes_dict[purpose].encode(ENCODING) + \
+         length_name_as_bytes + name.encode(ENCODING)
     N = 32768
     r = 8
     p = 2
     dkLen = 64
-    return scrypt.hash(key.encode(), seed, N, r, p, dkLen)
+    return scrypt.hash(key, seed, N, r, p, dkLen)
 
 def sitekey(site_name, master_key, counter, purpose):
     """Phase 2: Your site key "com.lyndir.masterpassword"
@@ -83,17 +76,15 @@ def sitekey(site_name, master_key, counter, purpose):
     cryptographic site key from the from the site name and master key scoped
     to a given counter value.
     """
-    if not ASCII(site_name):
-        raise ValueError("Site name contains characters that are not ascii")
     key = master_key
-    length_site_name_as_bytes = len(site_name).to_bytes(length=4,
-                                                        byteorder='big',
-                                                        signed=False)
-    counter_as_bytes = counter.to_bytes(length=4,
-                                        byteorder='big',
+    length_site_name_as_bytes = len(site_name.encode(ENCODING)).to_bytes(length=INT_BYTES,
+                                                                         byteorder=BYTE_ORDER,
+                                                                         signed=False)
+    counter_as_bytes = counter.to_bytes(length=INT_BYTES,
+                                        byteorder=BYTE_ORDER,
                                         signed=False)
-    seed = key_scopes_dict[purpose].encode() + length_site_name_as_bytes + \
-        site_name.encode() + counter_as_bytes
+    seed = key_scopes_dict[purpose].encode(ENCODING) + length_site_name_as_bytes + \
+        site_name.encode(ENCODING) + counter_as_bytes
     return hmac.new(key, seed, hashlib.sha256).digest()
 
 # Output Templates:
@@ -203,17 +194,6 @@ def generate_password(full_name,
 	              site_counter,
 	              key_purpose,
 	              result_type):
-    if not all([ASCII(master_password),
-                ASCII(full_name),
-                ASCII(site_name)]):
-        error_message = ""
-        if not ASCII(master_password):
-            error_message += "Password contains characters that are not ascii\n"
-        if not ASCII(full_name):
-            error_message += "Name contains characters that are not ascii\n"
-        if not ASCII(site_name):
-            error_message += "Site name contains characters that are not ascii\n"
-        raise ValueError(error_message)
     master_key = masterKey(master_password,
                            full_name,
                            key_purpose)
@@ -242,7 +222,7 @@ def identicon(full_name, master_password, use_color=False):
                        (len(master_password) == 0) or master_password is None)
     if non_legit_input:
         return ""
-    seed = hmac.new(master_password.encode(), full_name.encode(),
+    seed = hmac.new(master_password.encode(ENCODING), full_name.encode(ENCODING),
                     hashlib.sha256).digest()
     left_arm = left_arm_list[seed[0] % len(left_arm_list)]
     body = body_list[seed[1] % len(body_list)] 
