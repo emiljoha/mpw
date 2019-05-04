@@ -1,7 +1,16 @@
+dist: xenial
 language: python
+sudo: required
+services: [docker]
 python:
-  - "3.5"
+  - "3.6"
+before_install:
+  - sudo apt-get update
 install:
-  - python setup.py install
+  - pip install pexpect pytest
+  - sudo apt-get install xsel
 script:
-  - python setup.py test
+  - docker run -v $(pwd):$(pwd) -w $(pwd) snapcore/snapcraft sh -c "apt update && apt upgrade --yes && snapcraft"
+  - sudo apt install --yes snapd
+  - sudo snap install *.snap --dangerous
+  - export LANG=C.UTF-8 && pytest tests/test_mpwcli.py

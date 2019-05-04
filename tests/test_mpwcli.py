@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 import pexpect # to test cli
-from tests.testcases import load_test_cases
-import pprint
-import sys
+try:
+    from tests.testcases import load_test_cases
+except:
+    from testcases import load_test_cases
 
 num_tests_run = 0
 
@@ -43,3 +44,6 @@ def test_keyword_short():
                                case['siteName'], case['siteCounter'],
                                case['resultType'], case['keyPurpose'],
                                case['result'], case['identicon'])
+
+if __name__ == '__main__':
+    test_keyword_short()
