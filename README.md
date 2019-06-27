@@ -83,12 +83,12 @@ sudo apt install libssl-dev
 
 Install with setuptools
 ```shell
-	python3 setup.py install
+python3 setup.py install
 ```
 
 To uninstall.
 ```shell
-	pip uninstall mpw
+pip uninstall mpw
 ```
 
 
