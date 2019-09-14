@@ -91,9 +91,24 @@ To uninstall.
 	pip uninstall mpw
 ```
 
+### Emacs
+
+Install the snap and set FULL_NAME in the configuration JSON file.
+
+The path of the file is shown when running. 
 
 
+``` shell
+mpw -h
+```
+You will need root priviliges to edit the config file.
 
+Clone the mpw repo or just download the ```mpw.el``` file.
 
+Add this to you emacs configuration.
+``` elisp
+(load-file "/path/to/mpw/mpw.el")
+```
 
-
+Run the command ```M-x mpw```. Write site name and password when promted. The
+generated password will be in your clipboard.
