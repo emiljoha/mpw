@@ -14,6 +14,6 @@
   "MasterPassword algorithm now in emacs.
 Note that mpw need to be installed and full name configured for this function to work."
   (interactive "sSite: ")
-  (async-shell-command-no-window (concat "mpw --quiet " site))
+  (async-shell-command-no-window (concat "mpw --quiet \"" site "\""))
   )
 
