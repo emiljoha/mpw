@@ -4,9 +4,9 @@
 
 # Masterpassword
 
-This is a linux commandline interface based on the https://masterpassword.app/
-platform independent cli by Maarten Billemont. The c code implementing the
-masterpassword algorithm is identical to the official version.
+This is a linux commandline interface to the master password algorithm using an independent implementation of the algorithm.
+
+Algorithm used developed by Maarten Billemont https://masterpassword.app so password generated with this cli is compatiple withe the wide variety of apps developed by the original author of the algorithm.
 
 ## Description
 
