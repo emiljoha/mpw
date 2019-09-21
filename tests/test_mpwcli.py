@@ -11,14 +11,19 @@ def is_ascii(s):
     maxAnsiCode = 127
     return all([c <= maxAnsiCode for c in s.encode()])
 
+def clear_config():
+    config_directory = os.environ['HOME'] + '/.config/mpw/'
+    if not os.path.exists(config_directory):
+        os.makedirs(config_directory)
+    with open(config_directory + 'config.json', 'w') as config:
+        config.write('{}')
+
 def run_test_keyword_short(fullName, masterPassword, siteName,
                            siteCounter, resultType, keyPurpose,
                            result, identicon):
     global num_tests_run
     arguments = locals()
-    # Clean config plate
-    with open(os.environ['HOME'] + '/.config/mpw/config.json', 'w') as config:
-        config.write('{}')
+    clear_config()
     spawn_command = 'mpw -u \"%s\" -c %s -t %s -p %s %s' % (fullName,
                                                             siteCounter,
                                                             resultType,
@@ -44,9 +49,7 @@ def run_test_do_not_ask_again(fullName, masterPassword, siteName,
                               result, identicon):
     global num_tests_run
     arguments = locals()
-    # Clean config plate
-    with open(os.environ['HOME'] + '/.config/mpw/config.json', 'w') as config:
-        config.write('{}')
+    clear_config()
     spawn_command = 'mpw -u \"%s\" -c %s -t %s -p %s %s' % (fullName,
                                                             siteCounter,
                                                             resultType,
@@ -83,9 +86,7 @@ def run_test_set_password(fullName, masterPassword, siteName,
                           result, identicon):
     global num_tests_run
     arguments = locals()
-    # Clean config plate
-    with open(os.environ['HOME'] + '/.config/mpw/config.json', 'w') as config:
-        config.write('{}')
+    clear_config()
     spawn_command = 'mpw -u \"%s\" -c %s -t %s -p %s %s' % (fullName,
                                                             siteCounter,
                                                             resultType,
