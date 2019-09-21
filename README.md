@@ -38,13 +38,10 @@ with backups, sync, confiscation, snooping, and more.
 
 ### Snap
 
-The easiest way to get mpw is to install the snap. The snap is only published
-in edge and in development mode witch indicates that there might be
-issues. But not more than in the other ways of installing the app.
+The easiest way to get mpw is to install the snap.
 
 ```shell
-sudo snap install --edge mpw --devmode
-
+sudo snap install mpw
 ```
 
 #### Build your own snap
