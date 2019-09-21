@@ -7,6 +7,8 @@ import getpass # Password prompt
 from argparse import RawTextHelpFormatter
 import hashlib
 import json
+import copy
+
 def parse_commandline_arguments(config_path_for_help_message):
     """Parse commandline argument and return namespace"""
     # Define what arguments to accept and with what help message and defaults.
@@ -72,6 +74,11 @@ def read_config(config_path):
         return dict()
     return config
 
+def write_config(config, config_path):
+    f = open(config_path, 'w')
+    f.write(json.dumps(config, indent=4))
+    f.close()
+
 def process_arguments(args, config):
     # Check if environment variables are set.
     if args.full_name is None:
@@ -87,6 +94,19 @@ def process_arguments(args, config):
         args.site_result_type = short_site_result_type_dict[args.site_result_type]
     return args
 
+def update_config(args, config):
+    new_config = copy.deepcopy(config)
+    do_not_ask = 'ASK_TO_SET_DEFAULT_NAME' in config and config['ASK_TO_SET_DEFAULT_NAME'] == False
+    if 'FULL_NAME' not in config and not do_not_ask:
+        answer = input('Do you want to use this name as the default (y/n): ')
+        if answer.lower() == 'y':
+            new_config['FULL_NAME'] = args.full_name
+        if answer.lower() == 'n':
+            ask_again_answer = input('Do you want to to get this question the '
+                                     'next time you run mpw (y/n): ')
+            if ask_again_answer.lower() == 'n':
+                new_config['ASK_TO_SET_DEFAULT_NAME'] = False
+    return new_config
 
 def generate_results(args, master_password):
     try:
@@ -137,6 +157,8 @@ def run(config_path):
     # Look for environment variables or ask when missing information in arguments.
     config = read_config(config_path)
     args = process_arguments(args, config)
+    new_config = update_config(args, config)
+    write_config(new_config, config_path)
     # Get password from user.
     master_password = getpass.getpass()
     # Run the algorithm.
@@ -150,3 +172,6 @@ def run(config_path):
         if args.verbose:
             print(str(e))
     print_results(site_result, identicon, args)
+
+if '__main__' == __name__:
+    run('config.json')
