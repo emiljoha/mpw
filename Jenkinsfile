@@ -1,7 +1,11 @@
 pipeline {
     agent none 
     stages {
-        stage('Build') { 
+        stage('Initialize') {
+            def dockerHome = tool 'jenkins-docker'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
+        stage('Build') {
             agent {
                 docker {
                     image 'python:latest'
