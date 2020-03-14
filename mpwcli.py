@@ -132,16 +132,19 @@ def main_snap():
     run(os.environ['SNAP_DATA'] + '/config.json')
 
 def run(config_path):
-    # Define and read commandline arguments. (Need config path for help message.)
-    args = parse_commandline_arguments(config_path)
-    # Look for environment variables or ask when missing information in arguments.
-    config = read_config(config_path)
-    args = process_arguments(args, config)
-    # Get password from user.
-    master_password = getpass.getpass()
-    # Run the algorithm.
-    site_result, identicon, masterKeyHash = generate_results(args, master_password)
-    # Copy to clipboard
+    try:
+        # Define and read commandline arguments. (Need config path for help message.)
+        args = parse_commandline_arguments(config_path)
+        # Look for environment variables or ask when missing information in arguments.
+        config = read_config(config_path)
+        args = process_arguments(args, config)
+        # Get password from user.
+        master_password = getpass.getpass()
+        # Run the algorithm.
+        site_result, identicon, masterKeyHash = generate_results(args, master_password)
+        # Copy to clipboard
+    except KeyboardInterrupt:
+        exit()
     try:
         pyperclip.copy(site_result)
     except pyperclip.PyperclipException as e:
