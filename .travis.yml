@@ -1,6 +1,9 @@
 services:
   - docker
 language: python
+branches:
+  only:  # Creates a whitelist.  Any branch not in this list will not build.
+    - master
 python:
   - "3.5"
 install:
