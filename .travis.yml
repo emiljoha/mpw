@@ -1,3 +1,11 @@
+arch:
+  - amd64
+  - arm64
+  - armhf
+  - i386
+  - ppc64el
+  - s390x
+os: linux
 services:
   - docker
 language: python
