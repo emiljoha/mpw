@@ -1,19 +1,18 @@
+sudo: required
 services:
   - docker
 language: python
-branches:
-  only:  # Creates a whitelist.  Any branch not in this list will not build.
-    - master
 python:
   - "3.5"
 install:
   - python setup.py install
 script:
   - python setup.py test
-  - docker run -v $(pwd):/mpw snapcore/snapcraft sh -c "apt update && cd /mpw && snapcraft"
 deploy:
   provider: snap
   snap: mpw_*.snap
   channel: edge
+  provider: script
+  script: docker run -v $(pwd):/mpw snapcore/snapcraft sh -c "apt update && cd /mpw && snapcraft"
   on:
     branch: master
