@@ -1,3 +1,6 @@
+branches:
+  only:  # Avoids double builds on PRs but still builds master.
+    - master
 language: python
 python:
   - "3.5"
