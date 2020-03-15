@@ -12,7 +12,6 @@ script:
   - python setup.py test
   - docker run -v $(pwd):/mpw snapcore/snapcraft sh -c "apt update && cd /mpw && snapcraft"
 deploy:
-  edge: true
   provider: snap
   snap: mpw_*.snap
   channel: edge
