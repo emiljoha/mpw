@@ -6,7 +6,7 @@ setup(name='mpw',
       description='Calculate a site\'s password',
       author='Emil Johansson',
       author_email='emil.sweden@gmail.com',
-      url='https://gitlab.com/emijoha/MasterPassword',
+      url='https://github.com/emiljoha/mpw',
       entry_points={
         'console_scripts': [
             'mpw = mpwcli:main',
