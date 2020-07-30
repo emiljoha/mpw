@@ -12,8 +12,8 @@ setup(name='mpw',
             'mpw = mpwcli:main',
             'mpw_snap = mpwcli:main_snap',
         ],},
-      py_modules=['mpwalg', 'mpwcli'],
+      py_modules=['mpwcli'],
       setup_requires=["pytest-runner"],
-      install_requires=['pyperclip', 'scrypt'],
+      install_requires=['pyperclip', 'git+https://github.com/emiljoha/pympw.git@acc48fe'],
       tests_require=['pytest', 'pexpect']
 )
