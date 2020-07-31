@@ -14,6 +14,7 @@ setup(name='mpw',
         ],},
       py_modules=['mpwcli'],
       setup_requires=["pytest-runner"],
-      install_requires=['pyperclip', 'git+https://github.com/emiljoha/pympw.git@acc48fe'],
+      install_requires=['pyperclip'],
+      dependency_links=['http://github.com/emiljoha/pympw/tarball/master#egg=package-1.0'],
       tests_require=['pytest', 'pexpect']
 )
