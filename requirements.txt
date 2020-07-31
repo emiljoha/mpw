@@ -2,3 +2,4 @@ pyperclip
 pexpect
 setuptools
 pytest
+git+https://github.com/emiljoha/pympw.git@0.1
