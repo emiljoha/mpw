@@ -93,10 +93,8 @@ def generate_results(args, master_password):
         identicon = mpwalg.identicon(args.full_name, master_password)
         site_result = mpwalg.generate_password(args.full_name, master_password,
                                               args.site_name, args.counter,
-                                              args.key_purpose,
                                               args.site_result_type)
-        masterKey = mpwalg.masterKey(args.full_name, master_password,
-                                    "Authentication")
+        masterKey = mpwalg.masterKey(args.full_name, master_password)
         sha256 = hashlib.sha256()
         sha256.update(masterKey)
         masterKeyHash = sha256.hexdigest()
@@ -116,11 +114,9 @@ def print_results(site_result, identicon, args):
     siteCounter      : %s
     resultType       : %s
     resultParam      : (null)
-    keyPurpose       : %s
     keyContext       : (null)
     ------------------""" % (args.full_name, args.site_name,
-                             args.counter, args.site_result_type,
-                             args.key_purpose))
+                             args.counter, args.site_result_type))
     if not args.quiet:
         print("[ %s ]: %s" % (identicon, site_result))
 
