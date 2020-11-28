@@ -11,7 +11,7 @@ parts:
     build-packages:
         - libssl-dev
     stage-packages:
-        - xsel
+        - xclip
 
 apps:
   mpw:
