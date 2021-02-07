@@ -141,11 +141,16 @@ def run(config_path):
         # Copy to clipboard
     except KeyboardInterrupt:
         exit()
+    os.system('wl-copy "%s"' % site_result)
     try:
         pyperclip.copy(site_result)
     except pyperclip.PyperclipException as e:
         if not args.quiet:
-            print("Warning: Could not find a copy/paste mechanism for your system.")
+            print("Warning!: Could not find a copy/paste mechanism for your system.")
         if args.verbose:
             print(str(e))
     print_results(site_result, identicon, args)
+
+
+if __name__ == '__main__':
+    main()
