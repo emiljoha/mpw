@@ -153,4 +153,11 @@ def run(config_path):
 
 
 if __name__ == '__main__':
-    main()
+    if 'XDG_CONFIG_HOME' in os.environ:
+        config_file = '%s/config.json' % os.environ['XDG_CONFIG_HOME']
+        if not os.path.isfile(config_file):
+            with open(config_file, 'w') as f:
+                f.write('{}')
+        run('%s/config.json' % os.environ['XDG_CONFIG_HOME'])
+    else:
+        main()
