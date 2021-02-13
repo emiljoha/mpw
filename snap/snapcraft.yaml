@@ -3,10 +3,10 @@ version: git
 summary: Masterpassword app cli. 
 description: Calculate  a site's password, when you need it. Fork of from masterpassword.app.
 confinement: strict
+base: core20
 parts:
   mpw:
     plugin: python
-    python-version: python3
     source: .
     build-packages:
         - libssl-dev
