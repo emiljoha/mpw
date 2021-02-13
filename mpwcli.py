@@ -144,8 +144,21 @@ def run(config_path):
     try:
         pyperclip.copy(site_result)
     except pyperclip.PyperclipException as e:
-        if not args.quiet:
-            print("Warning: Could not find a copy/paste mechanism for your system.")
-        if args.verbose:
-            print(str(e))
+        exit_code = os.system('wl-copy "%s"' % site_result)
+        if exit_code != 0:
+            if not args.quiet:
+                print("Warning!: Could not find a copy/paste mechanism for your system.")
+            if args.verbose:
+                print(str(e))
     print_results(site_result, identicon, args)
+
+
+if __name__ == '__main__':
+    if 'XDG_CONFIG_HOME' in os.environ:
+        config_file = '%s/config.json' % os.environ['XDG_CONFIG_HOME']
+        if not os.path.isfile(config_file):
+            with open(config_file, 'w') as f:
+                f.write('{}')
+        run('%s/config.json' % os.environ['XDG_CONFIG_HOME'])
+    else:
+        main()
