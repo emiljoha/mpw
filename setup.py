@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='mpw',
-      version='0.1',
+      version='2021.09.4',
       description='Calculate a site\'s password',
       author='Emil Johansson',
       author_email='emil.sweden@gmail.com',
