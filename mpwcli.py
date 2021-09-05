@@ -1,12 +1,14 @@
 #!/usr/bin/python3
-import os # to get environment variables
-import argparse # Parsing arguments
-import mpw # The master password algorithm
-import pyperclip # Copy to clipboard
-import getpass # Password prompt
+import os  # to get environment variables
+import argparse  # Parsing arguments
+import mpw  # The master password algorithm
+import pyperclip  # Copy to clipboard
+import getpass  # Password prompt
 from argparse import RawTextHelpFormatter
 import hashlib
 import json
+
+
 def parse_commandline_arguments(config_path_for_help_message):
     """Parse commandline argument and return namespace"""
     # Define what arguments to accept and with what help message and defaults.
@@ -16,44 +18,52 @@ def parse_commandline_arguments(config_path_for_help_message):
 JSON style configuration file can be found in %s
 Parameters:
 FULL_NAME: set default name to avoid specifying it every time.
-""" % config_path_for_help_message,
-                                     formatter_class=RawTextHelpFormatter)
-    parser.add_argument('-u', '--full-name', type=str,
-                        default=None,
-                        help="Specify the full name of the user.\n"
-                             "-u checks the master password against the config,\n"
-                             "-U allows updating to a new master password.\n"
-                             "Defaults to MPW_FULLNAME in env or prompts.\n")
-    parser.add_argument('-c', '--counter', type=int,
-                        help='Counter', default=1)
-    parser.add_argument('-t', '--site-result-type', type=str, default="Long",
-                        help = "Specify the password's template\n"
-                        "Defaults to 'long' (-t a)\n"
-                        "x, Maximum  | 20 characters, contains symbols.\n"
-                        "l, Long     | Copy-friendly, 14 characters, symbols.\n"
-                        "m, Medium   | Copy-friendly, 8 characters, symbols.\n"
-                        "b, Basic    | 8 characters, no symbols.\n"
-                        "s, Short    | Copy-friendly, 4 characters, no symbols.\n"
-                        "i, Pin      | 4 numbers.\n"
-                        "n, Name     | 9 letter name.\n"
-                        "p, Phrase   | 20 character sentence.\n")
-    parser.add_argument('-p', '--key-purpose', type=str, default="Authentication",
-                        help="Purpose of site result.\n"
-                        "Currently only Authentication is supported.\n"
-                        "Comment on/create a issue on github for this to be fixed\n"
-                        "if this is a problem to you.\n"
-                        "One of: Authentication, [Identification, Recovery].\n")
-    parser.add_argument('-v', '--verbose', action='store_true', default=False,
-                        help="Increase output verbosity.\n")
-    parser.add_argument('-q', '--quiet', action='store_true', default=False,
-                        help="Decrease output verbosity.\n")
-    parser.add_argument('site_name', type=str, nargs='?',
-                        help='Name of the site for which to generate a token.', default=None)
+""" % config_path_for_help_message, formatter_class=RawTextHelpFormatter)
+    parser.add_argument(
+        '-u', '--full-name', type=str,
+        default=None,
+        help="Specify the full name of the user.\n"
+        "-u checks the master password against the config,\n"
+        "-U allows updating to a new master password.\n"
+        "Defaults to MPW_FULLNAME in env or prompts.\n")
+    parser.add_argument(
+        '-c', '--counter', type=int,
+        help='Counter', default=1)
+    parser.add_argument(
+        '-t', '--site-result-type', type=str, default="Long",
+        help="Specify the password's template\n"
+        "Defaults to 'long' (-t a)\n"
+        "x, Maximum  | 20 characters, contains symbols.\n"
+        "l, Long     | Copy-friendly, 14 characters, symbols.\n"
+        "m, Medium   | Copy-friendly, 8 characters, symbols.\n"
+        "b, Basic    | 8 characters, no symbols.\n"
+        "s, Short    | Copy-friendly, 4 characters, no symbols.\n"
+        "i, Pin      | 4 numbers.\n"
+        "n, Name     | 9 letter name.\n"
+        "p, Phrase   | 20 character sentence.\n")
+    parser.add_argument(
+        '-p', '--key-purpose', type=str, default="Authentication",
+        help="Purpose of site result.\n"
+        "Currently only Authentication is supported.\n"
+        "Comment on/create a issue on github for this to be fixed\n"
+        "if this is a problem to you.\n"
+        "One of: Authentication, [Identification, Recovery].\n")
+    parser.add_argument(
+        '-v', '--verbose', action='store_true', default=False,
+        help="Increase output verbosity.\n")
+    parser.add_argument(
+        '-q', '--quiet', action='store_true', default=False,
+        help="Decrease output verbosity.\n")
+    parser.add_argument(
+        'site_name', type=str, nargs='?',
+        help='Name of the site for which to generate a token.',
+        default=None)
     args = parser.parse_args()
     if not args.key_purpose == "Authentication":
         print("Only Authentication key purpose is currrently supported")
         quit()
     return args
+
 
 def read_config(config_path):
     if 'HOME' in os.environ:
