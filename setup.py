@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='mpw',
-      version='2021.09.4',
+      version='2021.09.5',
       description='Calculate a site\'s password',
       author='Emil Johansson',
       author_email='emil.sweden@gmail.com',
@@ -15,7 +15,7 @@ setup(name='mpw',
       py_modules=['mpwcli'],
       install_requires=[
           'pyperclip',
-          'mpwalg==0.2.2'
+          'mpwalg==0.2.3'
       ],
       tests_require=['pytest', 'pexpect']
 )
