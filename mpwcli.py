@@ -82,6 +82,7 @@ def read_config(config_path):
         return dict()
     return config
 
+
 def process_arguments(args, config):
     # Check if environment variables are set.
     if args.full_name is None:
@@ -91,19 +92,31 @@ def process_arguments(args, config):
             args.full_name = input('Full Name: ')
     if args.site_name is None:
         args.site_name = input('Site Name: ')
-    short_site_result_type_dict = {'x': 'Maximum', 'l': 'Long', 'm': 'Medium', 'b': 'Basic',
-                                   's': 'Short', 'i': 'PIN', 'n': 'Name', 'p': 'Phrase'}
-    if args.site_result_type in short_site_result_type_dict:
-        args.site_result_type = short_site_result_type_dict[args.site_result_type]
+    type_abbreviations = {
+        'x': 'Maximum',
+        'l': 'Long',
+        'm': 'Medium',
+        'b': 'Basic',
+        's': 'Short',
+        'i': 'PIN',
+        'n': 'Name',
+        'p': 'Phrase',
+    }
+    if args.site_result_type in type_abbreviations:
+        args.site_result_type = type_abbreviations[args.site_result_type]
     return args
 
 
 def generate_results(args, master_password):
     try:
         identicon = mpw.identicon(args.full_name, master_password)
-        site_result = mpw.generate_password(args.full_name, master_password,
-                                              args.site_name, args.counter,
-                                              args.site_result_type)
+        site_result = mpw.generate_password(
+            args.full_name,
+            master_password,
+            args.site_name,
+            args.counter,
+            args.site_result_type,
+        )
         masterKey = mpw.masterKey(args.full_name, master_password)
         sha256 = hashlib.sha256()
         sha256.update(masterKey)
@@ -113,6 +126,7 @@ def generate_results(args, master_password):
         print("Error generating result, aborting")
         quit()
     return site_result, identicon, masterKeyHash
+
 
 def print_results(site_result, identicon, args):
     # Print output.
@@ -134,20 +148,25 @@ def print_results(site_result, identicon, args):
 def main():
     run(os.environ['HOME'] + '/.config/mpw/config.json')
 
+
 def main_snap():
     run(os.environ['SNAP_DATA'] + '/config.json')
 
+
 def run(config_path):
     try:
-        # Define and read commandline arguments. (Need config path for help message.)
+        # Define and read commandline arguments.
+        # Need config path for help message.
         args = parse_commandline_arguments(config_path)
-        # Look for environment variables or ask when missing information in arguments.
-        config = read_config(config_path)
+        # Look for environment variables or ask when missing
+        # information in arguments.
+        config = _read_config(config_path)
         args = process_arguments(args, config)
         # Get password from user.
         master_password = getpass.getpass()
         # Run the algorithm.
-        site_result, identicon, masterKeyHash = generate_results(args, master_password)
+        site_result, identicon, masterKeyHash = \
+            generate_results(args, master_password)
         # Copy to clipboard
     except KeyboardInterrupt:
         exit()
@@ -157,7 +176,8 @@ def run(config_path):
         exit_code = os.system('wl-copy "%s"' % site_result)
         if exit_code != 0:
             if not args.quiet:
-                print("Warning!: Could not find a copy/paste mechanism for your system.")
+                print("Warning!: "
+                      "Could not find a copy/paste mechanism for your system.")
             if args.verbose:
                 print(str(e))
     print_results(site_result, identicon, args)
