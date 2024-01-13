@@ -91,9 +91,18 @@ type Config struct {
 	FullName string `json:"FULL_NAME"`
 }
 
+func configPath() string {
+	if os.Getenv("XDG_CONFIG_HOME") != "" {
+		return os.Getenv("XDG_CONFIG_HOME") + "/config.json"
+	}
+	return os.Getenv("HOME") + "/.config/mpw/config.json"
+}
 func readConfig() (Config, error) {
-	b, err := os.ReadFile(os.Getenv("HOME") + "/.config/mpw/config.json")
+	b, err := os.ReadFile(configPath())
 	if err != nil {
+		if strings.Contains(err.Error(), "no such file or directory") {
+			return Config{}, nil
+		}
 		return Config{}, err
 	}
 	var c Config
@@ -114,7 +123,7 @@ type Flags struct {
 }
 
 func parseFlags() Flags {
-	fullName := flag.String("full-name", "", "Specify the full name of the user, can be configured in json at " + os.Getenv("HOME") + "/.config/mpw/config.json")
+	fullName := flag.String("full-name", "", "Specify the full name of the user, can be configured in json FULL_NAME at " + configPath())
 	fullNameShorthand := flag.String("u", "", "Specify the full name of the user")
 	counter := flag.Int("counter", 1, "Specify the full name of the user")
 	counterShorthand := flag.Int("c", 1, "Specify the full name of the user")
