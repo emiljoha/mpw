@@ -19,7 +19,6 @@ func main() {
 	config, err := readConfig()
 	if err != nil {
 		fmt.Printf("error reading config: %s\n", err.Error())
-		os.Exit(1)
 	}
 	if flags.FullName == "" {
 		if config.FullName != "" {
@@ -95,7 +94,7 @@ type Config struct {
 func readConfig() (Config, error) {
 	b, err := os.ReadFile(os.Getenv("HOME") + "/.config/mpw/config.json")
 	if err != nil {
-		return Config{}, nil
+		return Config{}, err
 	}
 	var c Config
 	err = json.Unmarshal(b, &c)
