@@ -115,7 +115,7 @@ type Flags struct {
 }
 
 func parseFlags() Flags {
-	fullName := flag.String("full-name", "", "Specify the full name of the user")
+	fullName := flag.String("full-name", "", "Specify the full name of the user, can be configured in json at " + os.Getenv("HOME") + "/.config/mpw/config.json")
 	fullNameShorthand := flag.String("u", "", "Specify the full name of the user")
 	counter := flag.Int("counter", 1, "Specify the full name of the user")
 	counterShorthand := flag.Int("c", 1, "Specify the full name of the user")
