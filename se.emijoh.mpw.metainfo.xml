@@ -16,4 +16,7 @@
       <image type="source">https://github-production-user-asset-6210df.s3.amazonaws.com/12907343/296613663-ba5164f8-c772-4646-b246-32382424ab2a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240114%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240114T195639Z&X-Amz-Expires=300&X-Amz-Signature=69338660b4ec4eaf14e850da0b201dc186ae2093eb0efc541d1a40ab9a90828d&X-Amz-SignedHeaders=host&actor_id=12907343&key_id=0&repo_id=339005356</image>
     </screenshot>
   </screenshots>
+  <releases>
+      <release version="2024.1.15" date="2024-01-15" />
+  </releases>
 </component>
