@@ -3,6 +3,11 @@
   <id>se.emijoh.mpw</id>
   <name>MasterPasswordApp CLI</name>
   <summary>Calculate  a site's password, when you need it.</summary>
+  <developer id="8271e856-9deb-48fa-828b-1b4440812132">
+    <name>
+      Emil Stigsson
+    </name>
+  </developer>
   <metadata_license>MIT</metadata_license>
   <description>
     <p>
@@ -11,6 +16,7 @@
   </description>
   <url type="homepage">http://mpw.emijoh.se</url>
   <project_license>GPL-3.0-only</project_license>
+  <icon type="remote">https://i.ibb.co/D7jbf8L/icon3.png</icon>
   <screenshots>
     <screenshot type="default">
       <image type="source">https://i.ibb.co/LgHZmsR/Screenshot-from-2024-01-14-20-55-05.png</image>
